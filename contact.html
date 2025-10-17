@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact - HIPAP Corporation</title>
+    <link rel="stylesheet" href="contact.css" />
+  </head>
+  <body>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+
+    <script>
+      // Initialisation EmailJS
+      (function () {
+        emailjs.init("EkIg33J5iorSGKUkL");
+      })();
+
+      // Fonction d'envoi du mail
+      function envoyerMail(event) {
+        event.preventDefault();
+
+        emailjs
+          .sendForm("hipap_corp", "template_17hwwxz", event.target)
+          .then(() => {
+            alert("✅ Message envoyé avec succès !");
+            event.target.reset();
+          })
+          .catch((error) => {
+            console.error("Erreur EmailJS :", error);
+            alert(
+              "❌ Une erreur est survenue : " +
+                (error.text || "réessayez plus tard.")
+            );
+          });
+      }
+    </script>
+
+    <!-- Formulaire -->
+    <form onsubmit="envoyerMail(event)" class="form-contact">
+      <input type="text" name="from_name" placeholder="Votre nom" required />
+      <input type="email" name="reply_to" placeholder="Votre e-mail" required />
+      <textarea
+        name="message"
+        placeholder="Votre message..."
+        required
+      ></textarea>
+      <button type="submit">Envoyer le message</button>
+    </form>
+  </body>
+</html>
